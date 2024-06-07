@@ -1,0 +1,2 @@
+### 단일 브랜드 전체 상품 구매 최저가 조회
+GET http://localhost:8080/v1/brands/cheapest-total

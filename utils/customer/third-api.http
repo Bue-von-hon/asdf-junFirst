@@ -1,0 +1,2 @@
+### 카테고리별 최저가/최고가 조회 및 상품 가격 확인
+GET http://localhost:8080/v1/category/minmax?name=상의

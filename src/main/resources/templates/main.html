@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+  <title>브랜드 관리</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 30px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    form {
+      margin-top: 20px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      width: 200px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #addCategories div, #updateCategories div, #deleteCategories div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    #addCategories span, #updateCategories span, #deleteCategories span {
+      width: 100px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>카테고리별 가장 저렴한 브랜드 목록</h1>
+  <table id="brandTable">
+    <thead>
+      <tr>
+        <th>카테고리</th>
+        <th>브랜드</th>
+        <th>가격</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="loadTableBtn">목록 로드</button>
+
+  <h1>총합이 가장 저렴한 브랜드 목록</h1>
+  <table id="cheapestBrandTable">
+    <thead>
+      <tr>
+        <th>카테고리</th>
+        <th>브랜드</th>
+        <th>가격</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="loadCheapestBrandsButton">목록 로딩</button>
+
+  <h1>카테고리의 최고가/최저가 브랜드</h1>
+  <table id="lowHighBrandTable">
+    <thead>
+    <tr>
+      <th>카테고리</th>
+      <th>최고가 브랜드</th>
+      <th>최고가</th>
+      <th>최저가 브랜드</th>
+      <th>최저가</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="loadLowHighBrandTableButton">목록 로딩</button>
+  <select id="categoryDropdown">
+  </select>
+
+  <h1>브랜드 추가</h1>
+  <form id="addBrandForm">
+    <label for="addBrandName">브랜드 이름:</label>
+    <input type="text" id="addBrandName" name="addBrandName" pattern="[a-z]+" title="영어 소문자만 입력 가능합니다." required>
+    <br>
+    <label>범주:</label>
+    <div id="addCategories">
+      <div>
+        <span>상의</span>
+        <input type="number" name="addTop" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>하의</span>
+        <input type="number" name="addBottom" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>아우터</span>
+        <input type="number" name="addOuter" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>바지</span>
+        <input type="number" name="addPants" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>가방</span>
+        <input type="number" name="addBag" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>모자</span>
+        <input type="number" name="addCap" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>양말</span>
+        <input type="number" name="addSocks" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>액세서리</span>
+        <input type="number" name="addAccessory" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+    </div>
+    <br>
+    <button type="submit">브랜드 추가</button>
+  </form>
+
+  <h1>브랜드 수정</h1>
+  <form id="updateBrandForm">
+    <label for="updateBrandName">브랜드 이름:</label>
+    <input type="text" id="updateBrandName" name="updateBrandName" pattern="[a-z]+" title="영어 소문자만 입력 가능합니다." required>
+    <br>
+    <label>범주:</label>
+    <div id="updateCategories">
+      <div>
+        <span>상의</span>
+        <input type="number" name="updateTop" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>하의</span>
+        <input type="number" name="updateBottom" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>아우터</span>
+        <input type="number" name="updateOuter" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>바지</span>
+        <input type="number" name="updatePants" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>가방</span>
+        <input type="number" name="updateBag" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>모자</span>
+        <input type="number" name="updateCap" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>양말</span>
+        <input type="number" name="updateSocks" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+      <div>
+        <span>액세서리</span>
+        <input type="number" name="updateAccessory" placeholder="가격" required min="100" max="999999" step="1">
+      </div>
+    </div>
+    <br>
+    <button type="submit">브랜드 수정</button>
+  </form>
+
+  <h1>브랜드 삭제</h1>
+  <form id="deleteBrandForm">
+    <label for="deleteBrandName">브랜드 이름:</label>
+    <input type="text" id="deleteBrandName" name="deleteBrandName" pattern="[a-z]+" title="영어 소문자만 입력 가능합니다." required>
+    <br>
+<!--    <label>범주:</label>-->
+    <div id="deleteCategories">
+      <div>
+<!--        <span>상의</span>-->
+        <input type="number" name="deleteTop" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>하의</span>-->
+        <input type="number" name="deleteBottom" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>아우터</span>-->
+        <input type="number" name="deleteOuter" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>바지</span>-->
+        <input type="number" name="deletePants" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>가방</span>-->
+        <input type="number" name="deleteBag" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>모자</span>-->
+        <input type="number" name="deleteCap" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>양말</span>-->
+        <input type="number" name="deleteSocks" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+      <div>
+<!--        <span>액세서리</span>-->
+        <input type="number" name="deleteAccessory" placeholder="가격" required min="100" max="999999" step="1" value="300" hidden="true">
+      </div>
+    </div>
+    <br>
+    <button type="submit">브랜드 삭제</button>
+  </form>
+
+  <script src="/resources/app.js"></script>
+</body>
+</html>
