@@ -38,6 +38,10 @@ public final class Response {
         return new Response(200, "OK", data);
     }
 
+    public static Response error() {
+        return new Response(500, "FAIL", null);
+    }
+
     public int getStatus() {
         return status;
     }

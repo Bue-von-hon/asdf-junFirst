@@ -27,6 +27,9 @@ public final class Response {
     public static Response from(BrandLowHighPricePair rawData, String categoryName) {
         return new Response(200, "OK", rawData, categoryName);
     }
+    public static Response error() {
+        return new Response(500, "FAIL", null, null);
+    }
 
     public int getStatus() {
         return status;

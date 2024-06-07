@@ -19,7 +19,11 @@ public class AllCategoryController {
 
     @GetMapping("v1/categories/cheapest")
     public Response getAllCategories() {
-        List<BrandLowHighPricePair> pairs = service.execute();
-        return Response.from(pairs);
+        try {
+            List<BrandLowHighPricePair> pairs = service.execute();
+            return Response.from(pairs);
+        } catch (Exception e) {
+            return Response.error();
+        }
     }
 }

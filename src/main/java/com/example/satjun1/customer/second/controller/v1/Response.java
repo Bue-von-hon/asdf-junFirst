@@ -52,6 +52,10 @@ public final class Response {
         return new Response(200, "OK", brandLowPriceData);
     }
 
+    public static Response error() {
+        return new Response(500, "FAIL", null);
+    }
+
     private record BrandLowPriceData(String brand, List<Category> categories, String total_price_sum,
                                      ZonedDateTime timestamp, String version, String serverVersion,
                                      int dataCount) {

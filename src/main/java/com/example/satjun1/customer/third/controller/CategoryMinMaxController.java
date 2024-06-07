@@ -18,7 +18,11 @@ public class CategoryMinMaxController {
 
     @GetMapping("v1/category/minmax")
     public Response getMinMax(@RequestParam String name) {
-        final BrandLowHighPricePair data = service.execute(name);
-        return Response.from(data, name);
+        try {
+            final BrandLowHighPricePair data = service.execute(name);
+            return Response.from(data, name);
+        } catch (Exception e) {
+            return Response.error();
+        }
     }
 }

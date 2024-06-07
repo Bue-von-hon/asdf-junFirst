@@ -17,8 +17,11 @@ public class BrandMinController {
 
     @GetMapping("v1/brands/cheapest-total")
     public Response getMinMax() {
-        LowestPriceListByCategory data = service.execute();
-        Response from = Response.from(data);
-        return from;
+        try {
+            LowestPriceListByCategory data = service.execute();
+            return Response.from(data);
+        } catch (Exception e) {
+            return Response.error();
+        }
     }
 }
